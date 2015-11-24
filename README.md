@@ -24,9 +24,7 @@ Planning Thoughts
  - How specific in geographic location for the data sets?
  - What sort of data visualizations would be easiest/most appropriate?
 
-Wireframes
+Wireframes and ERD
 ----------
-**https://moqups.com/katerebekah/06KOZzmp**
 
-ERD
----
+**https://moqups.com/katerebekah/06KOZzmp**
