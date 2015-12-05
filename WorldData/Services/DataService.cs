@@ -13,10 +13,8 @@ namespace WorldData.Services
         string ApiURL = "https://www.quandl.com/data/";
         string ApiKey = "?api_key=mWbezmtRyiryCF8GP5sN";
         string ApiDatabase = "UGID";
-        public async void getSomething()
-        {
-            string response = await GetResource();
-        }
+        string result;
+
         //Get all data options
         public IEnumerable<string> getAllCountries()
         {
@@ -37,7 +35,7 @@ namespace WorldData.Services
             return "";
         }
 
-        async Task<string> GetResource()
+        async Task GetResource()
         {
             using (var client = new HttpClient())
             {
@@ -47,7 +45,7 @@ namespace WorldData.Services
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 // Send/receive a response
-                return await client.GetStringAsync(ApiDatabase + ApiKey);
+                result = await client.GetStringAsync(ApiDatabase + ApiKey);
             }
         }
     }
