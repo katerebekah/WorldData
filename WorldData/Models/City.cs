@@ -9,12 +9,12 @@ namespace WorldData.Models
     public class City
     {
         [Key]
-        public int Id { get; set; }
+        public int CityId { get; set; }
         public string Name { get; set; }
-        public int StateId { get; set; }
         public int CountryId { get; set; }
-
-        public virtual State State { get; set; }
+        public string ApiURL { get; set; }
+        public string DisplayName { get; set; }
+        
         public virtual Country Country { get; set; }
     }
 }
