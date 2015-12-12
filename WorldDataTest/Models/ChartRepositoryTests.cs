@@ -13,10 +13,35 @@ namespace WorldDataTest
     {
         private Mock<ChartContext> mockContext;
         private ApplicationUser owner;
+        private Mock<DbSet<Chart>> mockChart;
+        private List<ChartItem> myChart;
 
         private void ConnectMocksToDataSource()
         {
+            // This setups the Mocks and connects to the Data Source (my_list in this case)
+            var data = myChart.AsQueryable();
 
+            mockChart.As<IQueryable<ChartItem>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockChart.As<IQueryable<ChartItem>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            mockChart.As<IQueryable<ChartItem>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockChart.As<IQueryable<ChartItem >>().Setup(m => m.Expression).Returns(data.Expression);
+
+            mockContext.Setup(m => m.Charts).Returns(mockChart.Object);
+        }
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            mockContext = new Mock<ChartContext>();
+            mockChart = new Mock<DbSet<Chart>>();
+            myChart = new List<ChartItem>();
+        }
+        [TestCleanup]
+        public void Cleanup()
+        {
+            mockContext = null;
+            mockChart = null;
+            myChart = null;
         }
 
         //Get Methods for City and Country
@@ -64,9 +89,10 @@ namespace WorldDataTest
         //CRUD methods for chart
 
         [TestMethod]
-        public void CanAddCityToChart()
+        public void CanAddChartItemToChart()
         {
-
+            ChartRepository chart = new ChartRepository(mockContext.Object);
+            ChartItem newItem = new ChartItem { Priority = 1, mockChart.ChartId };
         }
 
         [TestMethod]
