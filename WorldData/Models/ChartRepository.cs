@@ -38,6 +38,14 @@ namespace WorldData.Models
             return result;
         }
         
+        public City GetCityById (int cityId)
+        {
+            City result = null;
+            var query = from c in context.Cities where c.CityId == cityId select c;
+            result = query.Single<City>();
+            return result;
+        }
+
         //Get City Api URLS in Chart
         public List<string> GetApiUrlsInChart(int _chartId)
         {
@@ -69,23 +77,25 @@ namespace WorldData.Models
             catch (InvalidOperationException)
             {
                 result = false;
-                throw;
             }
             catch (ArgumentNullException)
             {
                 result = false;
-                throw;
             }
             return result;
         }
 
         public bool AddChartItem(int _chartId, City city)
         {
-            ChartItem _chartItem = new ChartItem {City = city,  };
-            
-            AddChartItem(_chartId, _chartItem);
+            ChartItem _chartItem = new ChartItem {City = city};
+            return AddChartItem(_chartId, _chartItem);
         }
 
+        public bool AddChartItem(int _chartId, int _cityId)
+        {
+            City cityToAdd = GetCityById(_cityId);
+            return AddChartItem(_chartId, cityToAdd);
+        }
 
         //Remove City from Chart
         public bool RemoveChartItem(int _chartId, ChartItem _itemToRemove)
