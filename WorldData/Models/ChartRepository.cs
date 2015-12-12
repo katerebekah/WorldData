@@ -21,16 +21,36 @@ namespace WorldData.Models
         }
 
         //Get All Countries
-        //Get Country By Name (search)
+        public List<Country> GetAllCountries()
+        {
+            var result = new List<Country>();
+            var query = from c in context.Countries select c;
+            result = query.ToList();
+            return result;
+        }
+
         //Get All Cities By Country
-        //Get City By Name (Search)
-        //Get City By Id 
+        public List<City> GetAllCitiesInCountry (int countryId)
+        {
+            var result = new List<City>();
+            var query = from c in context.Cities where c.CountryId == countryId select c;
+            result = query.ToList();
+            return result;
+        }
         
         //Get City Api URLS in Chart
         public List<string> GetApiUrlsInChart(int _chartId)
         {
             var query = from ch in context.ChartItems join ci in context.Cities on ch.City.CityId equals ci.CityId where ch.ChartId == _chartId select ci.ApiURL;
             List<string> result = query.ToList();
+            return result;
+        }
+
+        //Add Chart to New Profile
+        public bool AddChartToNewProfile(ApplicationUser owner)
+        {
+            var result = true;
+            context.Charts.Add(new Chart { Owner = owner, ChartItems = new List<ChartItem>() });
             return result;
         }
 
@@ -58,6 +78,14 @@ namespace WorldData.Models
             }
             return result;
         }
+
+        public bool AddChartItem(int _chartId, City city)
+        {
+            ChartItem _chartItem = new ChartItem {City = city,  };
+            
+            AddChartItem(_chartId, _chartItem);
+        }
+
 
         //Remove City from Chart
         public bool RemoveChartItem(int _chartId, ChartItem _itemToRemove)

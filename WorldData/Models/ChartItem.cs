@@ -10,7 +10,6 @@ namespace WorldData.Models
     {
         [Key]
         public int ChartItemId { get; set; }
-        public int Priority { get; set; }
         public int ChartId { get; set; }
 
         public virtual City City { get; set; }

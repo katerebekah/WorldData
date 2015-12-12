@@ -213,12 +213,13 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Chart.cs" />
+    <Compile Include="Models\ChartItem.cs" />
     <Compile Include="Models\City.cs" />
-    <Compile Include="Models\Continent.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\State.cs" />
+    <Compile Include="Models\Chart.cs" />
+    <Compile Include="Models\ChartContext.cs" />
+    <Compile Include="Models\ChartRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
