@@ -68,20 +68,20 @@ namespace WorldData.Models
             bool result = true;
             var query = from c in context.Charts where c.ChartId == _chartId select c;
             Chart foundChart = null;
-            try
-            {
+            //try
+            //{
                 foundChart = query.Single<Chart>();
                 foundChart.ChartItems.Add(_chart);
                 context.SaveChanges();
-            }
-            catch (InvalidOperationException)
-            {
-                result = false;
-            }
-            catch (ArgumentNullException)
-            {
-                result = false;
-            }
+            //}
+            //catch (InvalidOperationException)
+            //{
+            //    result = false;
+            //}
+            //catch (ArgumentNullException)
+            //{
+            //    result = false;
+            //}
             return result;
         }
 
