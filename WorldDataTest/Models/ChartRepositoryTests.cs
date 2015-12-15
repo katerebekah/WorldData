@@ -75,6 +75,7 @@ namespace WorldDataTest
             myChartItems = new List<ChartItem>();
             myCountries = new List<Country>();
             myCities = new List<City>();
+            owner = new ApplicationUser();
         }
         [TestCleanup]
         public void Cleanup()
