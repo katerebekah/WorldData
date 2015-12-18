@@ -45,7 +45,7 @@ namespace WorldData.Models
             result = query.Single<City>();
             return result;
         }
-
+        
         //Get City Api URLS in Chart
         public List<string> GetApiUrlsInChart(int _chartId)
         {
