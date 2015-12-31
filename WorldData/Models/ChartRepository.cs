@@ -54,6 +54,22 @@ namespace WorldData.Models
             return result ;
         }
 
+
+        //Get Chart ID from user
+        public int GetUserChart(string ownerId)
+        {
+            var query = from c in context.Charts where c.Owner.Id == ownerId select c.ChartId;
+            int result = query.Single<int>();
+            return result;
+        }
+
+        public Chart GetChart(ApplicationUser owner)
+        {
+            var query = from c in context.Charts where c.Owner.Id == owner.Id select c;
+            Chart chart = query.Single<Chart>();
+            return chart;
+        }
+
         //Add Chart to New Profile
         public bool AddChartToNewProfile(ApplicationUser owner)
         {

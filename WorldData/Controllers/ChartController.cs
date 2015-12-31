@@ -16,12 +16,16 @@ namespace WorldData.Controllers
         private ChartRepository chartRepo = new ChartRepository();
         private DataService dataService = new DataService();
 
+
+        //api/chart/ownerId
         [Authorize]
-        public IHttpActionResult GetChart()
+        public IHttpActionResult Get(string ownerId)
         {
-            return Ok();
+            int chartId = chartRepo.GetUserChart(ownerId);
+            return Ok(chartId);
         }
         //Get Chart for User
+
         //Get/Create Chart for new user
         //Add new item to Chart
         //Rearrange chart item

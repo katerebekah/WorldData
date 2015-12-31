@@ -21,3 +21,18 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+.jumbotron-logo {
+    background: url('worldDataLogo.png') no-repeat #63AFC6;
+    background-size: auto 100%;
+    color: #FFF;
+}
+
+.jumbotron-logo h1 {
+    color: #fff;
+}
+
+.img-logo {
+    max-height:25px;
+}
