@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Http;
 using WorldData.Models;
 using WorldData.Services;
+using Newtonsoft.Json;
 
 namespace WorldData.Controllers
 {
@@ -24,14 +25,28 @@ namespace WorldData.Controllers
             int chartId = chartRepo.GetUserChart(ownerId);
             return Ok(chartId);
         }
-        //Get Chart for User
-
-        //Get/Create Chart for new user
+        
         //Add new item to Chart
         //Rearrange chart item
         //Delete Chart Item
-
+        public IHttpActionResult Delete(int chartId, int itemId)
+        {
+            chartRepo.RemoveChartItem(chartId, itemId);
+            return Ok();
+        }
         //get all countries
+        public IHttpActionResult GetCountries()
+        {
+            List<Country> countries = chartRepo.GetAllCountries();
+            string jsonCountries = JsonConvert.SerializeObject(countries);
+            return Ok(jsonCountries);
+        }
         //get all cities in country
+        public IHttpActionResult GetCitiesInCountry(int cityId)
+        {
+            List<City> cities = chartRepo.GetAllCitiesInCountry(cityId);
+            
+            return Ok(cities);
+        }
     }
 }

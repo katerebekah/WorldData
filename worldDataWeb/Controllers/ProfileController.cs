@@ -18,7 +18,7 @@ namespace worldDataWeb.Controllers
         public async Task<ActionResult> Index()
         {
             string chartId = await apiService.GetChartId();
-            return View(chartId);
+            return View("Index", chartId);
         }
 
     }

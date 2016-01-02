@@ -114,6 +114,13 @@ namespace WorldData.Models
         }
 
         //Remove City from Chart
+        public bool RemoveChartItem(int _chartId, int _itemIdToRemove)
+        {
+            var query = from ch in context.ChartItems where ch.ChartItemId == _itemIdToRemove select ch;
+            var chartItem = query.Single<ChartItem>();
+            return RemoveChartItem(_chartId, chartItem);
+        }
+
         public bool RemoveChartItem(int _chartId, ChartItem _itemToRemove)
         {
             bool result = true;
