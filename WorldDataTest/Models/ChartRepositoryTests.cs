@@ -272,7 +272,7 @@ namespace WorldDataTest
             var result = chartRepo.AddChartToNewProfile(owner);
 
             //assert
-            Assert.IsTrue(result);
+            Assert.AreEqual(result.GetType(), typeof(int));
         }
     }
 }

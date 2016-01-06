@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 
 namespace WorldData.Models
 {
@@ -62,20 +64,27 @@ namespace WorldData.Models
             int result = query.Single<int>();
             return result;
         }
-
+        
         public Chart GetChart(ApplicationUser owner)
         {
             var query = from c in context.Charts where c.Owner.Id == owner.Id select c;
             Chart chart = query.Single<Chart>();
             return chart;
         }
-
+        
         //Add Chart to New Profile
-        public bool AddChartToNewProfile(ApplicationUser owner)
+        public int AddChartToNewProfile(ApplicationUser owner)
         {
             var result = true;
-            context.Charts.Add(new Chart { Owner = owner, ChartItems = new List<ChartItem>() });
-            return result;
+            var chart = new Chart { Owner = owner, ChartItems = new List<ChartItem>() };
+            context.Charts.Add(chart);
+            return chart.ChartId;
+        }
+
+        public int AddChartToNewProfile(string ownerId)
+        {
+            ApplicationUser owner = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(ownerId);
+            return AddChartToNewProfile(owner);
         }
 
         //Add City to Chart
@@ -144,6 +153,14 @@ namespace WorldData.Models
             }
             return result;
         }
+        //Update City Priority In Chart
+        public bool RearrangeChartItems(int _chartId, int _itemIdToMove, int _newPosition)
+        {
+            var query = from c in context.ChartItems where c.ChartItemId == _itemIdToMove select c;
+            var foundChartItem = query.Single<ChartItem>();
+            return RearrangeChartItems(_chartId, foundChartItem, _newPosition);
+        }
+
         //Update City Priority In Chart
         public bool RearrangeChartItems(int _chartId, ChartItem _itemToMove, int _newPosition)
         {

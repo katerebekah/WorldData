@@ -17,8 +17,8 @@ namespace worldDataWeb.Controllers
         // GET: Profile
         public async Task<ActionResult> Index()
         {
-            string chartId = await apiService.GetChartId();
-            return View("Index", chartId);
+            ViewBag.chartId = await apiService.GetChartId();
+            return View("Index");
         }
 
     }

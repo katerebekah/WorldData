@@ -9,6 +9,7 @@ using System.Web.Http;
 using WorldData.Models;
 using WorldData.Services;
 using Newtonsoft.Json;
+using System.Web.Routing;
 
 namespace WorldData.Controllers
 {
@@ -19,34 +20,80 @@ namespace WorldData.Controllers
 
 
         //api/chart/ownerId
-        [Authorize]
-        public IHttpActionResult Get(string ownerId)
+        [HttpGet]
+        public IHttpActionResult Get(string Id)
         {
-            int chartId = chartRepo.GetUserChart(ownerId);
-            return Ok(chartId);
+            try
+            {
+                int chartId = chartRepo.GetUserChart(Id);
+                return Ok(chartId);
+            }
+            catch (Exception e)
+            {
+                int chartId = chartRepo.AddChartToNewProfile(Id);
+                return Ok(chartId);
+            }
         }
         
-        //Add new item to Chart
-        //Rearrange chart item
-        //Delete Chart Item
+        [HttpDelete]
         public IHttpActionResult Delete(int chartId, int itemId)
         {
             chartRepo.RemoveChartItem(chartId, itemId);
             return Ok();
         }
-        //get all countries
+
+        [HttpPost]
+        public IHttpActionResult Add(int chartId, int cityId)
+        {
+            chartRepo.AddChartItem(chartId, cityId);
+            return Ok();
+        }
+
+        [HttpPost]
+        public IHttpActionResult Reorder (int chartId, int chartItemId, int newPosition)
+        {
+            try
+            {
+                chartRepo.RearrangeChartItems(chartId, chartItemId, newPosition);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet]
         public IHttpActionResult GetCountries()
         {
-            List<Country> countries = chartRepo.GetAllCountries();
-            string jsonCountries = JsonConvert.SerializeObject(countries);
-            return Ok(jsonCountries);
+            try
+            { 
+                List<Country> countries = chartRepo.GetAllCountries();
+                var settings = new JsonSerializerSettings();
+                settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                return Json(countries, settings);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError();
+            }
         }
-        //get all cities in country
+
+        [HttpGet]
         public IHttpActionResult GetCitiesInCountry(int cityId)
         {
-            List<City> cities = chartRepo.GetAllCitiesInCountry(cityId);
+            try
+            {
+                List<City> cities = chartRepo.GetAllCitiesInCountry(cityId);
+                var settings = new JsonSerializerSettings();
+                settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                return Json(cities, settings);
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
             
-            return Ok(cities);
         }
     }
 }
