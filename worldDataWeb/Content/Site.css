@@ -36,3 +36,7 @@ textarea {
 .img-logo {
     max-height:25px;
 }
+
+.text-small {
+    font-size: .8em;
+}

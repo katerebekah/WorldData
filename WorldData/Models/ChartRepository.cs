@@ -75,7 +75,6 @@ namespace WorldData.Models
         //Add Chart to New Profile
         public int AddChartToNewProfile(ApplicationUser owner)
         {
-            var result = true;
             var chart = new Chart { Owner = owner, ChartItems = new List<ChartItem>() };
             context.Charts.Add(chart);
             return chart.ChartId;
