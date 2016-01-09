@@ -5,29 +5,47 @@
 <div ng-app="worldData">
     <div ng-controller="profileCtrl">
         <div class="panel panel-default">
-            <div class="panel-body text-center">
-                <h2>Looks like you haven't created a chart yet.</h2>
-                <br />
-                <button class="btn btn-lg btn-primary" ng-click="GetCountries()">Let's Get Started</button>
-                <br />
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">Choose A Country</div>
-            <div class="panel-body row">
-                <div class="col-md-3" ng-repeat="Country in Countries">
-                    <div class="text-small" ng-click="GetCitiesinCountry(Country.$id)">{{Country.Name}}</div>
+            <div ng-show="Step == 1">
+                <div ng-hide="chart.cities.length > 0"class="panel-body text-center">
+                    <h2>Looks like you haven't created a chart yet.</h2>
+                    <br />
+                    <button class="btn btn-lg btn-primary" ng-click="GetCountries()">Let's Get Started</button>
+                    <br />
+                </div>
+                <div ng-show="chart.cities.length > 0">
+                    <div class="panel-heading"><h3>Populations By City</h3></div>
+                    <div class="panel-body">
+                        <h2>Your Chart goes here.</h2>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">Choose A City</div>
-            <div class="panel-body">
-                <div class="col-md-3" ng-repeat="City in Cities">
-                    <div class="text-small" ng-click="AddCityToChart(City)">{{City.Name}}</div> 
+                <div ng-show="Step == 2">
+                    <div class="panel-heading"><h3>Choose A Country</h3></div>
+                    <div class="panel-body row">
+                        <div class="col-md-3" ng-repeat="Country in Countries">
+                            <div class="text-small" ng-click="GetCitiesinCountry(Country.$id)">{{Country.Name}}</div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-primary" ng-click="GoBack()">Go Back</button>
+                    </div>
+                </div>
+                <div ng-show="Step == 3">
+                    <div class="panel-heading"><h3>Choose A City</h3></div>
+                    <div class="panel-body">
+                        <div class="col-md-3" ng-repeat="City in Cities">
+                            <div class="text-small" ng-click="AddCityToChart(City)">{{City.Name}}</div>
+                        </div>
+                        <br />
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-primary" ng-click="GoBack()">Go Back</button>
+                    </div>
+                </div>
+                <div ng-show="Step == 4">
+                    
                 </div>
             </div>
-        </div>
 
     </div>
 </div>
