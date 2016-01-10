@@ -11,6 +11,7 @@ namespace WorldData.Models
     public class City
     {
         [Key]
+        [DataMember]
         public int CityId { get; set; }
         [DataMember]
         public string Name { get; set; }

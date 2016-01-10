@@ -10,7 +10,7 @@ namespace WorldData.Models
     {
         [Key]
         public int ChartId { get; set; }
-        public ApplicationUser Owner { get; set; }
+        public string OwnerId { get; set; }
 
         public virtual IList<ChartItem> ChartItems { get; set; }
 

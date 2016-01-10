@@ -11,7 +11,7 @@ namespace WorldData.Services
     public class DataService
     {
         string ApiURL = "https://www.quandl.com/data/";
-        string ApiKey = "?api_key=mWbezmtRyiryCF8GP5sN";
+        string ApiKey = "&api_key=mWbezmtRyiryCF8GP5sN";
         string ApiDatabase = "UGID";
         string result;
 

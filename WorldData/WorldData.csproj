@@ -220,6 +220,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChartController.cs" />
+    <Compile Include="Controllers\ChartItemController.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -231,9 +232,9 @@
     <Compile Include="Migrations\201601010006004_InitialCreate.Designer.cs">
       <DependentUpon>201601010006004_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201601021741003_InitialCreate1.cs" />
-    <Compile Include="Migrations\201601021741003_InitialCreate1.Designer.cs">
-      <DependentUpon>201601021741003_InitialCreate1.cs</DependentUpon>
+    <Compile Include="Migrations\201601092147507_ChangeOwnerToOwnerIdInChart.cs" />
+    <Compile Include="Migrations\201601092147507_ChangeOwnerToOwnerIdInChart.Designer.cs">
+      <DependentUpon>201601092147507_ChangeOwnerToOwnerIdInChart.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -279,6 +280,8 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Scripts\d3.js" />
+    <Content Include="Scripts\d3.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -322,8 +325,8 @@
     <EmbeddedResource Include="Migrations\201601010006004_InitialCreate.resx">
       <DependentUpon>201601010006004_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601021741003_InitialCreate1.resx">
-      <DependentUpon>201601021741003_InitialCreate1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201601092147507_ChangeOwnerToOwnerIdInChart.resx">
+      <DependentUpon>201601092147507_ChangeOwnerToOwnerIdInChart.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

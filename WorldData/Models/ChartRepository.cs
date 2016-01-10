@@ -56,34 +56,29 @@ namespace WorldData.Models
             return result ;
         }
 
+        public List<City> GetCitiesInChart(int _chartId)
+        {
+            var query = from c in context.ChartItems where c.ChartId == _chartId select c.City;
+            List<City> result = query.ToList();
+            return result;
+        }
 
         //Get Chart ID from user
         public int GetUserChart(string ownerId)
         {
-            var query = from c in context.Charts where c.Owner.Id == ownerId select c.ChartId;
-            int result = query.Single<int>();
+            var query = from c in context.Charts where c.OwnerId == ownerId select c;
+            Chart chart = query.Single<Chart>();
+            int result = chart.ChartId;
             return result;
         }
         
-        public Chart GetChart(ApplicationUser owner)
-        {
-            var query = from c in context.Charts where c.Owner.Id == owner.Id select c;
-            Chart chart = query.Single<Chart>();
-            return chart;
-        }
-        
         //Add Chart to New Profile
-        public int AddChartToNewProfile(ApplicationUser owner)
-        {
-            var chart = new Chart { Owner = owner, ChartItems = new List<ChartItem>() };
-            context.Charts.Add(chart);
-            return chart.ChartId;
-        }
-
         public int AddChartToNewProfile(string ownerId)
         {
-            ApplicationUser owner = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(ownerId);
-            return AddChartToNewProfile(owner);
+            var chart = new Chart { OwnerId = ownerId, ChartItems = new List<ChartItem>() };
+            context.Charts.Add(chart);
+            context.SaveChanges();
+            return chart.ChartId;
         }
 
         //Add City to Chart
@@ -95,12 +90,9 @@ namespace WorldData.Models
             try
             {
                 foundChart = query.Single<Chart>();
+                context.ChartItems.Add(_chart);
                 foundChart.ChartItems.Add(_chart);
                 context.SaveChanges();
-            }
-            catch (InvalidOperationException)
-            {
-                result = false;
             }
             catch (ArgumentNullException)
             {
@@ -111,7 +103,7 @@ namespace WorldData.Models
 
         public bool AddChartItem(int _chartId, City city)
         {
-            ChartItem _chartItem = new ChartItem {City = city};
+            ChartItem _chartItem = new ChartItem {City = city, ChartId = _chartId};
             return AddChartItem(_chartId, _chartItem);
         }
 
@@ -124,7 +116,7 @@ namespace WorldData.Models
         //Remove City from Chart
         public bool RemoveChartItem(int _chartId, int _itemIdToRemove)
         {
-            var query = from ch in context.ChartItems where ch.ChartItemId == _itemIdToRemove select ch;
+            var query = from ch in context.ChartItems where ch.City.CityId == _itemIdToRemove && ch.ChartId == _chartId select ch;
             var chartItem = query.Single<ChartItem>();
             return RemoveChartItem(_chartId, chartItem);
         }
@@ -138,6 +130,7 @@ namespace WorldData.Models
             {
                 foundChart = query.Single<Chart>();
                 foundChart.ChartItems.Remove(_itemToRemove);
+                context.ChartItems.Remove(_itemToRemove);
                 context.SaveChanges();
             }
             catch (InvalidOperationException)
@@ -155,7 +148,7 @@ namespace WorldData.Models
         //Update City Priority In Chart
         public bool RearrangeChartItems(int _chartId, int _itemIdToMove, int _newPosition)
         {
-            var query = from c in context.ChartItems where c.ChartItemId == _itemIdToMove select c;
+            var query = from c in context.ChartItems where c.City.CityId == _itemIdToMove select c;
             var foundChartItem = query.Single<ChartItem>();
             return RearrangeChartItems(_chartId, foundChartItem, _newPosition);
         }

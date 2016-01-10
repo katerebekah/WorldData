@@ -28,7 +28,7 @@ namespace WorldData.Controllers
                 int chartId = chartRepo.GetUserChart(Id);
                 return Ok(chartId);
             }
-            catch (Exception e)
+            catch (InvalidOperationException e)
             {
                 int chartId = chartRepo.AddChartToNewProfile(Id);
                 return Ok(chartId);
@@ -42,6 +42,15 @@ namespace WorldData.Controllers
             return Ok();
         }
 
+        [HttpOptions]
+        public HttpResponseMessage Options()
+        {
+            var resp = new HttpResponseMessage(HttpStatusCode.OK);
+            resp.Headers.Add("Access-Control-Allow-Methods", "GET,DELETE,POST");
+
+            return resp;
+        }
+
         [HttpPost]
         public IHttpActionResult Add(int chartId, int cityId)
         {
@@ -50,11 +59,11 @@ namespace WorldData.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Reorder (int chartId, int chartItemId, int newPosition)
+        public IHttpActionResult Reorder (int chartId, int cityId, int newPosition)
         {
             try
             {
-                chartRepo.RearrangeChartItems(chartId, chartItemId, newPosition);
+                chartRepo.RearrangeChartItems(chartId, cityId, newPosition);
                 return Ok();
             }
             catch (Exception e)

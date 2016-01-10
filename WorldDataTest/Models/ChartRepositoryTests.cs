@@ -151,7 +151,7 @@ namespace WorldDataTest
             //arrange
             ChartRepository chartRepo = new ChartRepository(mockContext.Object);
             
-            Chart myChart = new Chart { ChartId = 1, Owner = owner };
+            Chart myChart = new Chart { ChartId = 1, OwnerId = owner.Id };
             City myCity = new City { CityId = 1 };
             ChartItem newItem = new ChartItem { City = myCity };
             ChartItem newItem2 = new ChartItem { City = myCity };
@@ -174,7 +174,7 @@ namespace WorldDataTest
             //arrange
             ChartRepository chartRepo = new ChartRepository(mockContext.Object);
 
-            Chart myChart = new Chart { ChartId = 1, Owner = owner };
+            Chart myChart = new Chart { ChartId = 1, OwnerId = owner.Id };
             City myCity = new City { CityId = 1 };
             ChartItem newItem = new ChartItem { City = myCity };
             ChartItem newItem2 = new ChartItem { City = myCity };
@@ -200,7 +200,7 @@ namespace WorldDataTest
             //arrange
             ChartRepository chartRepo = new ChartRepository(mockContext.Object);
 
-            Chart myChart = new Chart { ChartId = 1, Owner = owner };
+            Chart myChart = new Chart { ChartId = 1, OwnerId = owner.Id };
             City myCity = new City { CityId = 1 };
             City myCity2 = new City { CityId = 2 };
             City myCity3 = new City { CityId = 3 };
@@ -233,7 +233,7 @@ namespace WorldDataTest
             //arrange
             ChartRepository chartRepo = new ChartRepository(mockContext.Object);
 
-            Chart myChart = new Chart { ChartId = 1, Owner = owner };
+            Chart myChart = new Chart { ChartId = 1, OwnerId = owner.Id };
             City myCity = new City { CityId = 1, ApiURL = "Hello" };
             City myCity2 = new City { CityId = 2, ApiURL = "My Name" };
             City myCity3 = new City { CityId = 3, ApiURL = "Is Kate" };
@@ -269,7 +269,7 @@ namespace WorldDataTest
             ChartRepository chartRepo = new ChartRepository(mockContext.Object);
             ConnectMocksToDataSource();
             //act
-            var result = chartRepo.AddChartToNewProfile(owner);
+            var result = chartRepo.AddChartToNewProfile(owner.Id);
 
             //assert
             Assert.AreEqual(result.GetType(), typeof(int));

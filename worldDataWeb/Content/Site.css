@@ -40,3 +40,9 @@ textarea {
 .text-small {
     font-size: .8em;
 }
+
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+    cursor: pointer;
+}

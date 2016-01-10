@@ -29,6 +29,9 @@ namespace worldDataWeb
             
             bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
                       "~/Scripts/angular.js",
+                      "~/Scripts/ng-google-chart.js",
+                      "~/Scripts/angular-ui.js",
+                      "~/Scripts/googlecharts-docs",
                       "~/Scripts/app.js"));
 
         }
